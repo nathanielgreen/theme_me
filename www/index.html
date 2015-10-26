@@ -17,17 +17,22 @@
       <img src="img/ionic.png">
     </div>
     <div class="list list-inset">
-      <label class="item item-input">
-        <input type="text" placeholder="Email">
+      <label class="item item-input" id='email'>
+        <input type="text" placeholder="Email" required>
       </label>
-      <label class="item item-input">
-        <input type="text" placeholder="Password">
+      <label class="item item-input" id='password'>
+        <input type="password" placeholder="Password" required>
       </label>
+      <label class="item item-input" id='passwordConf'>
+        <input type="password" placeholder="Password Confirmation" required>
+      </label>
+    </div>
+    <div class="list list-inset" id="pushdown">
       <label class="item item-input">
         <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search for theme song">
+        <input type="text" placeholder="Search for theme song" required>
       </label>
-      <button class="button button-block button-positive">
+      <button class="button button-block button-positive" id='signUp'>
         Sign up
       </button>
     </div>
