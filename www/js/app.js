@@ -29,4 +29,8 @@ angular.module('thememe', ['ionic'])
   self.makePost = function(url) {
     $http.post('http://agile-waters-4177.herokuapp.com/sounds', url, 'POST').then("Post worked", "You're a scumbag");
   };
+
+  self.makeGet = function() {
+    $http.get('http://agile-waters-4177.herokuapp.com/sounds', 'GET').then("Made a cool get request", "You're a scumbag");
+  };
 });
