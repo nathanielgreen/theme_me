@@ -8,34 +8,39 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="lib/ionic/js/ionic.bundle.js"></script>
-    <script src="cordova.js"></script>
+    <script src="lib/angular-resource/angular-resource.js"></script>
+    <script src="lib/ionic/js/ionic-angular.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
     <script src="js/app.js"></script>
   </head>
 
-  <body ng-app="starter">
-    <div class="col col-33 col-offset-33" id="pushdown">
-      <img src="img/ionic.png">
-    </div>
-    <div class="list list-inset">
-      <label class="item item-input" id='email'>
-        <input type="text" placeholder="Email" required>
-      </label>
-      <label class="item item-input" id='password'>
-        <input type="password" placeholder="Password" required>
-      </label>
-      <label class="item item-input" id='passwordConf'>
-        <input type="password" placeholder="Password Confirmation" required>
-      </label>
-    </div>
-    <div class="list list-inset" id="pushdown">
-      <label class="item item-input">
-        <i class="icon ion-search placeholder-icon"></i>
-        <input type="text" placeholder="Search for theme song" required>
-      </label>
-      <button class="button button-block button-positive" id='signUp'>
-        Sign up
-      </button>
-    </div>
+  <body ng-app="thememe">
+    <ion-content ng-controller="themeMe as me">
+      {{1+1}}
+      <div class="col col-33 col-offset-33" id="pushdown">
+        <img src="img/ionic.png">
+      </div>
+      <div class="list list-inset">
+        <label class="item item-input" id='email'>
+          <input type="text" ng-model="email" placeholder="Email" required>
+        </label>
+        <label class="item item-input" id='password'>
+          <input type="password" ng-model="password" placeholder="Password" required>
+        </label>
+        <label class="item item-input" id='passwordConf'>
+          <input type="password" ng-model="passwordconf" placeholder="Password Confirmation" required>
+        </label>
+      </div>
+      <div class="list list-inset" id="pushdown">
+        <label class="item item-input" id="url">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" ng-model="url" placeholder="Search for theme song" required>
+        </label>
+        <button class="button button-block button-positive" ng-click="me.makePost(url)" id='signUp'>
+          Sign up
+        </button>
+      </div>
+    </ion-content>
   </body>
 
 </html>

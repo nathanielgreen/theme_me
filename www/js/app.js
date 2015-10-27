@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('thememe', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,3 +17,16 @@ angular.module('starter', ['ionic'])
     }
   });
 })
+.controller('themeMe', function($http) {
+  var self = this;
+
+  self.userHash = {};
+
+  self.getUser = function(email, password, passwordconf, url) {
+    self.userHash = {'email': email, 'password': password, 'passwordConf': passwordconf, 'url': url };
+  };
+
+  self.makePost = function(url) {
+    $http.post('http://agile-waters-4177.herokuapp.com/sounds', url, 'POST').then("Post worked", "You're a scumbag");
+  };
+});
