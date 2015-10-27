@@ -20,6 +20,8 @@ angular.module('thememe', ['ionic'])
 .controller('themeMe', function($http) {
   var self = this;
 
+  self.searchResults = [];
+
   self.userHash = {};
 
   self.getUser = function(email, password, passwordconf, url) {
@@ -33,5 +35,23 @@ angular.module('thememe', ['ionic'])
 
   self.makeGet = function() {
     $http.get('http://agile-waters-4177.herokuapp.com/sounds', 'GET').then("Made a cool get request", "You're a scumbag");
+  };
+
+  self.searchSC = function(searchQuery) {
+    SC.initialize({
+      client_id: '8e74002fd2542f89231c5133c2a54833'
+    });
+
+    SC.get('/tracks', {
+      q: searchQuery
+    }).then(function(tracks) {
+      self.searchResults = tracks;
+      console.log(self.searchResults);
+    });
+  };
+
+  self.setThemeSong = function(songurl) {
+    var posturl = { 'url': songurl };
+    $http.post('http://agile-waters-4177.herokuapp.com/sounds', posturl, 'POST').then("Post worked", "You're a scumbag");
   };
 });
