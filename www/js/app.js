@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('thememe', ['ionic'])
+angular.module('thememe', ['ionic', 'ngCordova'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -17,7 +17,7 @@ angular.module('thememe', ['ionic'])
     }
   });
 })
-.controller('themeMe', function($http, $sce) {
+.controller('themeMe', function($http, $sce, $cordovaGeolocation) {
   var self = this;
 
   self.searchResults = [];
@@ -78,4 +78,27 @@ angular.module('thememe', ['ionic'])
       return $sce.trustAsResourceUrl(src);
     };
   };
-});
+
+   self.distance = "";
+   self.ownLat = "";
+   self.ownLong = "";
+
+   var posOptions = {timeout: 4000, enableHighAccuracy: true};
+
+   self.where = function(){
+    $cordovaGeolocation.getCurrentPosition(posOptions)
+    .then(function(position){
+                 var lat  = position.coords.latitude;
+                 self.ownLat = lat;
+                 var long = position.coords.longitude;
+                 self.ownLong = long;
+                 // self.coor.push(lat);
+                 // self.coor.push(long);
+                 console.log('lat', lat);
+                 console.log('long', long);
+                 console.log('coor', self.coor);
+             }, function(error){
+                 console.log('error:', error);
+             });
+   };
+ });
