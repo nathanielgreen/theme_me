@@ -17,25 +17,24 @@
 
   <body ng-app="thememe">
     <ion-content ng-controller="themeMe as me">
-      {{1+1}}
       <div class="col col-33 col-offset-33" id="pushdown">
         <img src="img/ionic.png">
       </div>
       <div class="list list-inset">
         <label class="item item-input" id='email'>
-          <input type="text" ng-model="email" placeholder="Email" required>
+          <input type="text" ng-model="email" placeholder="Email">
         </label>
         <label class="item item-input" id='password'>
-          <input type="password" ng-model="password" placeholder="Password" required>
+          <input type="password" ng-model="password" placeholder="Password">
         </label>
         <label class="item item-input" id='passwordConf'>
-          <input type="password" ng-model="passwordconf" placeholder="Password Confirmation" required>
+          <input type="password" ng-model="passwordconf" placeholder="Password Confirmation">
         </label>
       </div>
       <div class="list list-inset" id="pushdown">
         <label class="item item-input" id="url">
           <i class="icon ion-search placeholder-icon"></i>
-          <input type="text" ng-model="searchTerm" placeholder="Search for theme song" required>
+          <input type="text" ng-model="searchTerm" placeholder="Search for theme song">
         </label>
         <button class="button button-block button-positive" ng-click="me.searchSC(searchTerm)" id='searchSC'>
           Search
@@ -44,7 +43,7 @@
             <div class="item">
               <img ng-src="{{ track.artwork_url }}">
               {{ track.title }}
-              <button class="button button-positive" ng-click="me.setThemeSong(track.permalink_url)">
+              <button class="button button-positive" ng-click="me.setThemeSong(email, password, passwordconf)">
                 Set Song
               </button>
             </div>
@@ -52,7 +51,7 @@
         <button class="button button-block button-positive" ng-click="me.makePost(url)" id='signUp'>
           Sign up
         </button>
-        <button class="button button-block button-positive" ng-click="me.makeGet()" id='Get'>
+        <button class="button button-block button-positive" ng-click="me.makeGet(5)" id='Get'>
           Get me Amadeus
         </button>
       </div>

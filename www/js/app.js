@@ -17,25 +17,36 @@ angular.module('thememe', ['ionic'])
     }
   });
 })
-.controller('themeMe', function($http) {
+.controller('themeMe', function($http, $sce) {
   var self = this;
 
   self.searchResults = [];
 
   self.userHash = {};
 
-  self.getUser = function(email, password, passwordconf, url) {
-    self.userHash = {'email': email, 'password': password, 'passwordConf': passwordconf, 'url': url };
+  self.themeSong = 'https://w.soundcloud.com/player/?url=http://swagadoodles.com';
+
+  self.getUser = function(email, password, passwordconf) {
+    self.userHash = {'email': email, 'password': password, 'passwordConf': passwordconf};
   };
 
   self.makePost = function(url) {
     var newUrl = { 'url': url };
-    $http.post('http://agile-waters-4177.herokuapp.com/sounds', newUrl, 'POST').then("Post worked", "You're a scumbag");
+    $http.post('http://agile-waters-4177.herokuapp.com/sounds', newUrl, 'POST').then(console.log("Post worked"), console.log("You're a scumbag"));
   };
 
-  self.makeGet = function() {
-    $http.get('http://agile-waters-4177.herokuapp.com/sounds', 'GET').then("Made a cool get request", "You're a scumbag");
+  self.makeGet = function(id) {
+
+    $http({
+      method: 'GET',
+      url: 'http://agile-waters-4177.herokuapp.com/sounds/'+id
+    }).then(function successCallback(response) {
+      var data = angular.fromJson(response);
+        console.log(response.data.url);
+    });
   };
+
+
 
   self.searchSC = function(searchQuery) {
     SC.initialize({
@@ -46,12 +57,25 @@ angular.module('thememe', ['ionic'])
       q: searchQuery
     }).then(function(tracks) {
       self.searchResults = tracks;
-      console.log(self.searchResults);
     });
   };
 
-  self.setThemeSong = function(songurl) {
-    var posturl = { 'url': songurl };
-    $http.post('http://agile-waters-4177.herokuapp.com/sounds', posturl, 'POST').then("Post worked", "You're a scumbag");
+  self.setThemeSong = function(email, password, passwordconf, songurl) {
+    var postData = { 'email':email, 'password': password, 'passwordconf': passwordconf, 'url': songurl };
+    $http.post('http://agile-waters-4177.herokuapp.com/sounds', postData, 'POST').then("Post worked", "You're a scumbag");
+  };
+
+  self.mainSong = function(id) {
+    $http({
+      method: 'GET',
+      url: 'http://agile-waters-4177.herokuapp.com/sounds/'+id
+    }).then(function successCallback(response) {
+      var data = angular.fromJson(response);
+      self.themeSong = 'https://w.soundcloud.com/player/?url=' + response.data.url;
+    });
+
+    self.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    };
   };
 });
