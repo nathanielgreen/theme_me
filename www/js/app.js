@@ -17,7 +17,7 @@ angular.module('thememe', ['ionic', 'ngCordova'])
     }
   });
 })
-.controller('themeMe', function($http, $sce, $cordovaGeolocation) {
+.controller('themeMe', function($http, $sce, $cordovaGeolocation, $interval) {
   var self = this;
 
   self.searchResults = [];
@@ -83,9 +83,9 @@ angular.module('thememe', ['ionic', 'ngCordova'])
    self.ownLat = "";
    self.ownLong = "";
 
-   var posOptions = {timeout: 4000, enableHighAccuracy: true};
+   var posOptions = {timeout: 5000, enableHighAccuracy: true};
 
-   self.where = function(){
+   $interval(function(){
     $cordovaGeolocation.getCurrentPosition(posOptions)
     .then(function(position){
                  var lat  = position.coords.latitude;
@@ -100,5 +100,5 @@ angular.module('thememe', ['ionic', 'ngCordova'])
              }, function(error){
                  console.log('error:', error);
              });
-   };
+   }, 10000);
  });
